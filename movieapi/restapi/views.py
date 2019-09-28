@@ -6,6 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.utils import IntegrityError
+from django.http import HttpResponse
+
+
+def homepage(request):
+    return HttpResponse('Hello Android Students.')
 
 
 class MovieViewSet(viewsets.ModelViewSet):
