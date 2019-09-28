@@ -20,25 +20,10 @@ class MovieViewSet(viewsets.ModelViewSet):
         print(self.request.user)
         return Movie.objects.filter(user=self.request.user).order_by('name')
 
-    # def list(self, request):
-    #     self.queryset = Movie.objects.filter(user=request.user).order_by('name')
-    #     return Response(serializer.data)
-
     def create(self, request):
         try:
             movie = Movie(name=request.data['name'], rating=request.data['rating'], user=request.user).save()
-            return Response('ok', status=status.HTTP_200_OK)
+            return Response('ok', status=status.HTTP_201_CREATED)
         except IntegrityError as e:
             print(e)
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
-    # def retrieve(self, request, pk=None):
-    #     pass
-
-    # def update(self, request, pk=None):
-    #     pass
-
-    # def partial_update(self, request, pk=None):
-    #     pass
-
-    # def destroy(self, request, pk=None):
-    #     pass

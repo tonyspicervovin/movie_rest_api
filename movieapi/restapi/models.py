@@ -9,4 +9,4 @@ class Movie(models.Model):
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self):
-        return f'Movie {self.id}. Name: {self.name} rating: {self.rating}'
+        return f'Movie {self.id}. Name: {self.name} rating: {self.rating} belongs to {self.user}'
