@@ -22,7 +22,7 @@ from movieapi.restapi import views
 # "Because we're using viewsets instead of views, we can automatically generate the URL 
 # conf for our API, by simply registering the viewsets with a router class."
 router = routers.DefaultRouter()
-router.register(r'movies', views.MovieViewSet)
+router.register(r'movies', views.MovieViewSet, basename="movies")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
