@@ -8,5 +8,8 @@ class Movie(models.Model):
     name = models.CharField(max_length=200, blank=False, null=False, unique=True)
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
+    class Meta:
+        unique_together = [ ['user', 'name' ] ]
+
     def __str__(self):
         return f'Movie {self.id}. Name: {self.name} rating: {self.rating} belongs to {self.user}'
