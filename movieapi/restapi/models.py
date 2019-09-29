@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Movie(models.Model):
     user = models.ForeignKey('auth.User', blank=False, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, blank=False, null=False, unique=True)
+    name = models.CharField(max_length=200, blank=False, null=False)
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     class Meta:
