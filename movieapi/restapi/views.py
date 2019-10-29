@@ -31,4 +31,4 @@ class MovieViewSet(viewsets.ModelViewSet):
             return Response(movie, status=status.HTTP_201_CREATED)
         except IntegrityError as e:
             print(e)
-            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
