@@ -27,7 +27,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     def create(self, request):
         try:
             print("creating", request.data)
-            movie = Movie(name=request.data['name'], rating=request.data['rating'], user=request.user).save()
+            movie = Movie(name=request.data['name'], overview=request.data['overview'], genres=request.data['genres'], date=request.data['date'], rating=request.data['rating'],user=request.user).save()
             return Response(movie, status=status.HTTP_201_CREATED)
         except IntegrityError as e:
             print(e)

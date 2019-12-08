@@ -16,6 +16,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=200)),
+                ('overview', models.CharField(max_length=1000),
+                ('genres', models.CharField(max_length=1000)),
+                ('date', models.CharField(max_length=1000)),
                 ('rating', models.FloatField()),
             ],
         ),
