@@ -92,29 +92,41 @@ class TestRoute(TestCase):
         response = self.client.post('/api/movies/', movie_data, follow=True)
         self.assertEqual(201, response.status_code)
 
-    def test_post_bad_movie(self):
-        movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 4}
+    def test_post_too_high_rating(self):
+        movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 10}
         response = self.client.post('/api/movies/', movie_data, follow=True)
         self.assertEqual(201, response.status_code)
 
     def test_get_movies(self):
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 3}
         response = self.client.post('/api/movies/', movie_data, follow=True)
-
         response2 = self.client.get('/api/movies/', movie_data, follow=True)
         self.assertEqual(200, response2.status_code)
 
-    def test_delete_movies(self):
+    def test_patch_movies(self):
 
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 3}
         response = self.client.post('/api/movies/', movie_data, follow=True)
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 4}
-        response2 = self.client.patch('/api/movies/', movie_data, follow=True)
-        self.assertEqual(405, response2.status_code)
+        response2 = self.client.patch('/api/movies/1', movie_data, follow=True)
+        self.assertEqual(200, response2.status_code)
 
+    def test_delete_movie(self):
+        user = User(username='bob', email='bob@bob.com', first_name='bob', last_name='bob')
+        user.save()
+        movie = Movie(user = user, name = 'scarface', overview = 'crime movie', genres = 'drama', date = '10-25-93', rating = 2.5)
+        movie.save()
+        route = f'/api/movies/{movie.id}/'
+        response2 = self.client.delete(route, follow=True)
+        self.assertEqual(200, response2.status_code)
 
-
-
-
+    def test_get_one_movie(self):
+        user = User(username='bob', email='bob@bob.com', first_name='bob', last_name='bob')
+        user.save()
+        movie = Movie(user = user, name = 'scarface', overview = 'crime movie', genres = 'drama', date = '10-25-93', rating = 2.5)
+        movie.save()
+        route = f'/api/movies/{movie.id}/'
+        response = self.client.get(route, follow=True)
+        self.assertEqual(200, response.status_code)
 
 # Create your tests here.
