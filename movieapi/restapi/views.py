@@ -10,7 +10,7 @@ from django.http import HttpResponse
 
 
 def homepage(request):
-    return HttpResponse('Hello Android Students.')
+    return HttpResponse('Hello World')
 
 
 class MovieViewSet(viewsets.ModelViewSet):

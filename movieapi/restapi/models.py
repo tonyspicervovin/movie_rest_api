@@ -9,7 +9,7 @@ class Movie(models.Model):
     overview = models.CharField(max_length=1000, blank=False, null=False)
     genres = models.CharField(max_length=500, blank=False, null=False)
     date = models.CharField(max_length=200, blank=False, null=False)
-    rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     
     class Meta:
         unique_together = [ ['user', 'name' ] ]
