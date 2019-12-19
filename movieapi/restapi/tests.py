@@ -95,12 +95,13 @@ class TestRoute(TestCase):
     def test_post_too_high_rating(self):
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 10}
         response = self.client.post('/api/movies/', movie_data, follow=True)
-        self.assertEqual(201, response.status_code)
+        self.assertEqual(400, response.status_code)
 
     def test_get_movies(self):
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 3}
         response = self.client.post('/api/movies/', movie_data, follow=True)
         response2 = self.client.get('/api/movies/', movie_data, follow=True)
+        print(response2.json())
         self.assertEqual(200, response2.status_code)
 
     def test_patch_movies(self):
@@ -109,6 +110,8 @@ class TestRoute(TestCase):
         response = self.client.post('/api/movies/', movie_data, follow=True)
         movie_data = {'user': self.tony.id, 'name': 'example', 'overview': 'is is a movie', 'genres': 'drama', 'date': '01-01-2001', 'rating': 4}
         response2 = self.client.patch('/api/movies/1', movie_data, follow=True)
+        movie = self.client.get('/api/movies/1')
+        print("name  " + movie.name)
         self.assertEqual(200, response2.status_code)
 
     def test_delete_movie(self):
